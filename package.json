@@ -32,19 +32,14 @@
         "eval": "^0.1.8",
         "express": "^4.18.1",
         "extract-zip": "^2.0.1",
-        "fca-disme": "^2.1.9",
-        "fca-gry-kj": "^1.1.7",
         "fca-h4m1m-x2": "^1.5.6",
         "fca-horizon-remake": "0.0.1-security",
-        "fca-project-cyber": "^1.1.7",
         "figlet": "^1.5.2",
         "fs-extra": "^10.1.0",
         "gifencoder": "^2.0.1",
         "google-translate-api": "^2.3.0",
         "googlethis": "^1.8.0",
-        "gtts": "^0.2.1",
         "helyt": "",
-        "imaginesdk": "^1.1.0",
         "jimp": "^0.16.1",
         "lyrics-finder": "^21.7.0",
         "minimist": "^1.2.6",
@@ -65,7 +60,8 @@
         "string-similarity": "^4.0.4",
         "totp-generator": "0.0.13",
         "yt-search": "^2.10.4",
-        "ytdl-core": "^4.11.5"
+        "ytdl-core": "^4.11.5",
+        "unofficial-fb-chat-api": "^1.0.0"
     },
     "devDependencies": {
         "node": "^18.17.0"
