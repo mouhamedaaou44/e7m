@@ -6,7 +6,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "𝙈𝙧𝙏𝙤𝙢𝙓𝙭𝙓",
 	description: "غير صورة المجموعة الخاصة بك",
-	commandCategory: "Box",
+	commandCategory: "〘 المجموعات 〙",
 	usages: "صورالمجموعة",
 	cooldowns: 0,
 	dependencies: [] 
