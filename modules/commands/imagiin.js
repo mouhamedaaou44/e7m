@@ -2,10 +2,10 @@ module.exports.config = {
   name: "تخيلي",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Arjhil",
+  credits: "محمدو",
   description: "( وصف ثم يتم توليد ما قمت بتخيله )",
   usePrefix: true,
-  commandCategory: "الذكاء الإصطناعي",
+  commandCategory: "〘 الذكاء الاصطناعي  〙",
   usages: "( قم بتوليد صور إنطلاقا من مخيلتك )",
   cooldowns: 2,
 };
@@ -22,7 +22,7 @@ module.exports.run = async ({ api, event, args }) => {
   let path = __dirname + `/cache/polination.png`;
 
   try {
-    const response = await axios.get(`https://arjhil-midjourney.arjhilbard.repl.co/generate-image?prompt=${encodeURIComponent(query)}`);
+    const response = await axios.get(`https://deku-rest-api.replit.app/dalle?prompt=${encodeURIComponent(query)}`);
     const images = response.data.result;
 
     api.sendMessage("🕟 | جاري توليد ماتخيلته ، المرجو الإنتظار...", threadID, messageID);
