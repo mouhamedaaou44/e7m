@@ -1,10 +1,10 @@
 module.exports.config = {
-  name: "تخيل",
+  name: "ايمي",
   version: "0.0.1@cracked",
   hasPermssion: 0,
   credits: "Nguyễn Minh Hiếu",
-  description: "Cracked by Jake",
-  commandCategory: "Generate",
+  description: "تخيل الصور",
+  commandCategory: "〘 الذكاء الاصطناعي  〙",
   usages: "",
   cooldowns: 15
 };
@@ -37,7 +37,7 @@ module.exports.run = async ({
     return u.sendMessage("الرجاء إدخال موجه", e.threadID, e.messageIF);
   }
   u.sendMessage("⚙الذكاء الاصطناعي يرسم\n\n✍️محتوى: " + o + "\n👥طالب الرسم: " + (await b.getData(e.senderID)).name, e.threadID, e.messageID);
-  var r = await k.get(encodeURI("https://text2img.bo090909.repl.co/?prompt=" + zaba));
+  var r = await k.get(encodeURI("https://deku-rest-api.replit.app/emi?prompt=" + zaba));
   console.log(r);
   for (i = 0; i < 4; i++) {
     var s = r.data.imageURLs[i];
