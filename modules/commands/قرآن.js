@@ -7,7 +7,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "Gry KJ",
   description: "",
-  commandCategory: "islam",
+  commandCategory: "〘 الخدمات 〙",
   usages: "",
   cooldowns: 0,
 };
