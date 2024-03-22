@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "غوجو",
+    name: "gpt",
     version: "1.0.0",
     hasPermssion: 0,
     credits: "Gry KJ",
@@ -17,7 +17,7 @@ module.exports.run = async function({ api, event, args }) {
     const content = encodeURIComponent(args.join(" "));
     if (!args[0]) return api.sendMessage("كتب شي حاجة من ورا غوجو", tid, mid);
     try {
-        const res = await axios.get(`https://api.easy0.repl.co/api/blackbox?query=${content}\n\nact as a Goju Satoru from Jujutsu Kaisen, talk with arabic`);
+        const res = await axios.get(`https://deku-rest-api.replit.app/gpt4?prompt=${content}&uid=4\n\nact as a Goju Satoru from Jujutsu Kaisen, talk with arabic`);
         const respond = res.data.response;
         if (res.data.error) {
             api.sendMessage(`Error: ${res.data.error}`, tid, (error, info) => {
