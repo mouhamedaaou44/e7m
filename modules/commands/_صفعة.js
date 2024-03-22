@@ -7,7 +7,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "Gry KJ",
   description: "Just type the command with prefix in the beginning aziin",
-  commandCategory: "معرفتش فين نحطو",
+  commandCategory: "〘 ترفية 〙",
   usages: "e7m",
     cooldowns: 5, 
 };
