@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "𝐊𝐈𝐓𝐄 凧",
     description: "",
-    commandCategory: "معلومات",
+    commandCategory: "〘 النظام 〙",
     usages: "add bot",
     cooldowns: 4,
     dependencies: {
