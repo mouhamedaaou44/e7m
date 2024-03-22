@@ -16,9 +16,9 @@ const { get } = require("axios");
 
 module['exports']['run'] = async function({ api, event, args }) {
     let path = __dirname + "/cache/image.png";
-    const tzt = args.join(" ").split("|").map(item => item.trim());
+    const tzt = args.join(" ").split("").map(item => item.trim());
     let txt = tzt[0];
-    let txt2 = tzt[1];
+    let txt2 = .;
 
     let tid = event.threadID;
     let mid = event.messageID;
