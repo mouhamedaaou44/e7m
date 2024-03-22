@@ -246,11 +246,11 @@ const fs = require("fs-extra");
           //fs.unlinkSync(__dirname + "/cache/videoPost.mp4");
         }
         catch(e) {}
-        return api.sendMessage(`» Post created successfully\n» postID: ${postID}\n» urlPost: ${urlPost}`, threadID, messageID);
+        return api.sendMessage(`» تم بنجاح!!\n» بوست id: ${postID}\n» رابط المنشوؤ: ${urlPost}`, threadID, messageID);
 		  }
 		  catch (e) {
 				//console.log(e)
-		    return api.sendMessage(`Post creation failed, please try again later`, threadID, messageID);
+		    return api.sendMessage(`خطاء`, threadID, messageID);
 		  }
     });
 
