@@ -4,7 +4,7 @@ version: "1.0.0",
 hasPermssion: 0,
 credits: "D-Jukie",
 description: "يطردك من المجموعة",
-commandCategory: "اشياء",
+commandCategory: "〘 المجموعات 〙",
 usages: "  اذا انت ادمن ومتريد الامر يشتغل ببساطه نزل البوت من الادمن",
 cooldowns: 3
 }; 
