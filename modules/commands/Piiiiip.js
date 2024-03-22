@@ -1,25 +1,43 @@
-const fs = require("fs");
-
 module.exports.config = {
-    name: "باء",
+    name: "سكرين",
     version: "1.0.0",
-    hasPermssion: 2,
-    credits: "Goatbot v2",//sen conv UwU
-    description: "",
-    commandCategory: "ADMIN",
-    usages: ""
-}
-module.exports.run = async function ({ api, event }) {
-    const appstate = JSON.stringify(api.getAppState(), null, 2);
-    const pathSave = `${__dirname}/cache/appstate.json`;
-    fs.writeFileSync(pathSave, appstate);
-    if (event.senderID != event.threadID) {
-        api.sendMessage({
-            body: `appstate`,
-            attachment: fs.createReadStream(pathSave)
-        }, event.senderID, () => {
-            api.sendMessage("Đã gửi appstate vào tin nhắn riêng", event.threadID);
-            fs.unlinkSync(pathSave);
-        });
+    hasPermision: 0,
+    credit: "DRIDI-RAYEN",
+    description: "احصل على معلومات أي موقع أذا كنت تريد التأكد من أمان الموقع",
+    commandCategory: "〘 الخدمات 〙",
+  	cooldowns: 5,
+	  dependencies: {
+        "fs-extra": "",
+        "path": "",
+        "url": ""
     }
 };
+
+module.exports.onLoad = async () => {
+    const { existsSync } = global.nodemodule["fs-extra"];
+    const { resolve } = global.nodemodule["path"];
+
+    const path = resolve(__dirname, "cache", "pornlist.txt");
+
+    if (!existsSync(path)) return await global.utils.downloadFile("https://raw.githubusercontent.com/blocklistproject/Lists/master/porn.txt", path);
+    else return;
+}
+
+module.exports.run = async ({ event, api, args, }) => {
+    const { readFileSync, createReadStream, unlinkSync } = global.nodemodule["fs-extra"];
+    const url = global.nodemodule["url"];
+
+    if (!global.moduleData.pornList) global.moduleData.pornList = readFileSync(__dirname + "/cache/pornlist.txt", "utf-8").split('\n').filter(site => site && !site.startsWith('#')).map(site => site.replace(/^(0.0.0.0 )/, ''));
+    const urlParsed = url.parse(args[0]);
+
+    if (global.moduleData.pornList.some(pornURL => urlParsed.host == pornURL)) return api.sendMessage("الموقع الذي أدخلته غير أمن !!(موقع أباحي)", event.threadID, event.messageID);
+
+    try {
+        const path = __dirname + `/cache/${event.threadID}-${event.senderID}s.png`;
+        await global.utils.downloadFile(`https://image.thum.io/get/width/1920/crop/400/fullpage/noanimate/${args[0]}`, path);
+        api.sendMessage({ attachment: createReadStream(path) }, event.threadID, () => unlinkSync(path));
+    }
+    catch {
+        return api.sendMessage("هل أنت متأكد من أن الرابط صحيح ؟", event.threadID, event.messageID);
+    }
+}
