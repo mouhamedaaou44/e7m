@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "𝙈𝙧𝙏𝙤𝙢𝙓𝙭𝙓",
 	description: "تغيير اسم المجموعة الخاصة بك",
-	commandCategory: "Box", 
+	commandCategory: "〘 المجموعات 〙", 
 	usages: "تغييراسمالمجموعة [اسم]", 
 	cooldowns: 0,
 	dependencies: [] 
