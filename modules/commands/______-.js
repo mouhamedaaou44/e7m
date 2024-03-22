@@ -1,105 +1,44 @@
 module.exports.config = {
-    name: "فايل",
-    version: "1.0.0",
-    hasPermssion: 2,
-    credits: "D-Jukie",
-    description: "Áp dụng code từ buildtooldev và pastebin",
-    commandCategory: "admin",
-    usages: "admin",
-    cooldowns: 0,
-    dependencies: {
-        "pastebin-api": "",
-        "cheerio": "",
-        "request": ""
-    }
+  name: "زوجني",
+  version: "1.0.0", 
+  hasPermssion: 0,
+  credits: "DRIDI-RAYEN",
+  description: "زواج",
+  commandCategory: "〘 الالعاب 〙", 
+  usages: "pair", 
+  cooldowns: 40
 };
+module.exports.run = async function({ api, event,Threads, Users }) {
+        const axios = global.nodemodule["axios"];
+        const fs = global.nodemodule["fs-extra"];
 
-module.exports.run = async function ({ api, event, args }) {
-  const permission = ["100061089512442",""];
-	if (!permission.includes(event.senderID)) return api.sendMessage("/callad có đứa định trộm mdl", event.threadID, event.messageID);
-    const axios = require('axios');
-    const fs = require('fs');
-    const request = require('request');
-    const cheerio = require('cheerio');
-    const { join, resolve } = require("path");
-    const { senderID, threadID, messageID, messageReply, type } = event;
-    var name = args[0];
-    if (type == "message_reply") {
-        var text = messageReply.body;
-    }
-    if(!text && !name) return api.sendMessage('Vui lòng reply link muốn áp dụng code hoặc ghi tên file để up code lên pastebin!', threadID, messageID);
-    if(!text && name) {
-        var data = fs.readFile(
-          `${__dirname}/${args[0]}.js`,
-          "utf-8",
-          async (err, data) => {
-            if (err) return api.sendMessage(`Lệnh ${args[0]} không tồn tại!.`, threadID, messageID);
-            const { PasteClient } = require('pastebin-api')
-            const client = new PasteClient("R02n6-lNPJqKQCd5VtL4bKPjuK6ARhHb");
-            async function pastepin(name) {
-              const url = await client.createPaste({
-                code: data,
-                expireDate: 'N',
-                format: "javascript",
-                name: name,
-                publicity: 1
-              });
-              var id = url.split('/')[3]
-              return 'https://pastebin.com/raw/' + id
-            }
-            var link = await pastepin(args[1] || 'noname')
-            return api.sendMessage(link, threadID, messageID);
+        var { participantIDs } =(await Threads.getData(event.threadID)).threadInfo;
+        var tle = Math.floor(Math.random() * 101);
+        var namee = (await Users.getData(event.senderID)).name
+        const botID = api.getCurrentUserID();
+        const listUserID = event.participantIDs.filter(ID => ID != botID && ID != event.senderID);
+        var id = listUserID[Math.floor(Math.random() * listUserID.length)];
+        var name = (await Users.getData(id)).name
+        var arraytag = [];
+                arraytag.push({id: event.senderID, tag: namee});
+                arraytag.push({id: id, tag: name});
+
+
+        let Avatar = (await axios.get( `https://graph.facebook.com/${event.senderID}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data; 
+            fs.writeFileSync( __dirname + "/cache/avt.png", Buffer.from(Avatar, "utf-8") );
+
+        let gifLove = (await axios.get( `https://i.imgur.com/Uuo2dE4.jpeg`, { responseType: "arraybuffer" } )).data; 
+            fs.writeFileSync( __dirname + "/cache/giflove.png", Buffer.from(gifLove, "utf-8") );
+
+        let Avatar2 = (await axios.get( `https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data;
+            fs.writeFileSync( __dirname + "/cache/avt2.png", Buffer.from(Avatar2, "utf-8") );
+
+        var imglove = [];
+
+              imglove.push(fs.createReadStream(__dirname + "/cache/avt.png"));
+              imglove.push(fs.createReadStream(__dirname + "/cache/giflove.png"));
+              imglove.push(fs.createReadStream(__dirname + "/cache/avt2.png"));
+
+        var msg = {body: `🥰لدينا محبوبان هنا\n💌مبروك الزواح\n💕نسبة الرمسنية بينكم هي: ${tle}%\n`+namee+" "+"💓"+" "+name, mentions: arraytag, attachment: imglove}
+        return api.sendMessage(msg, event.threadID, event.messageID)
           }
-        );
-        return
-    }
-    var urlR = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-    var url = text.match(urlR);
-    if (url[0].indexOf('pastebin') !== -1) {
-        axios.get(url[0]).then(i => {
-            var data = i.data
-            fs.writeFile(
-                `${__dirname}/${args[0]}.js`,
-                data,
-                "utf-8",
-                function (err) {
-                    if (err) return api.sendMessage(`Đã xảy ra lỗi khi áp dụng code vào ${args[0]}.js`, threadID, messageID);
-                    api.sendMessage(`Đã áp dụng code vào ${args[0]}.js, sử dụng command load để sử dụng!`, threadID, messageID);
-                }
-            );
-        })
-    }
-
-    if (url[0].indexOf('buildtool') !== -1 || url[0].indexOf('tinyurl.com') !== -1) {
-        const options = {
-            method: 'GET',
-            url: messageReply.body
-        };
-        request(options, function (error, response, body) {
-            if (error) return api.sendMessage('Vui lòng chỉ reply link (không chứa gì khác ngoài link)', threadID, messageID);
-            const load = cheerio.load(body);
-            load('.language-js').each((index, el) => {
-                if (index !== 0) return;
-                var code = el.children[0].data
-                fs.writeFile(`${__dirname}/${args[0]}.js`, code, "utf-8",
-                    function (err) {
-                        if (err) return api.sendMessage(`Đã xảy ra lỗi khi áp dụng code mới cho "${args[0]}.js".`, threadID, messageID);
-                        return api.sendMessage(`Đã thêm code này vào "${args[0]}.js", sử dụng command load để sử dụng!`, threadID, messageID);
-                    }
-                );
-            });
-        });
-        return
-    }
-    if (url[0].indexOf('drive.google') !== -1) {
-      var id = url[0].match(/[-\w]{25,}/)
-      const path = resolve(__dirname, `${args[0]}.js`);
-      try {
-        await utils.downloadFile(`https://drive.google.com/u/0/uc?id=${id}&export=download`, path);
-        return api.sendMessage(`Đã thêm code này vào "${args[0]}.js" nếu xảy ra lỗi thì đổi file drive thành txt nhé!`, threadID, messageID);
-      }
-      catch(e) {
-        return api.sendMessage(`Đã xảy ra lỗi khi áp dụng code mới cho "${args[0]}.js".`, threadID, messageID);
-      }
-    }
-  } 
