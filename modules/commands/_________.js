@@ -9,7 +9,7 @@ module.exports = {
     description: "اسئل gemini",
     hasPermssion: 0, // 0 for all users, 1 for admin, 2 for dev
     credits: "OPERATOR ISOY",
-    commandCategory: "〘 الخدمات 〙",
+    commandCategory: "〘 الذكاء الاصطناعي  〙",
     usages: "",
     cooldowns: 5,
   },
