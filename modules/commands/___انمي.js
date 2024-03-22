@@ -1,9 +1,9 @@
 const axios = require("axios");
-const commandName = "كيرو";
+const commandName = "نامي";
 const xv = `
 Ai character info :
 
-you're kiro, you're an ai assistant, you're the best and the best, use emojies in u're answers, you're creator is "sifo anter" don't say that if no one ask, you speak just arabic`;
+you're nami san, you're an ai assistant, you're the best and the best, use emojies in u're answers, you're creator is "Mohamedou Brahim" don't say that if no one ask, you speak just arabic, end musslim`;
 module.exports = {
     config: {
         name: commandName,
@@ -12,7 +12,7 @@ module.exports = {
         cooldowns: 5,
         hasPermission: 0,
         description: "AI",
-        prefix: true,
+        prefix: flas,
         commandCategory: "〘 الذكاء الاصطناعي  〙",
     },
     run: async function ({ event, api, args }) {
