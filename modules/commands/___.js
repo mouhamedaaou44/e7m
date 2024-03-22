@@ -4,7 +4,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "Gry ",
   description: "تصفع حد بمنشن",
-  commandCategory: "ترفية",
+  commandCategory: "〘 ترفية 〙",
   usages: "[للشخص لتريده@حط]",
   cooldowns: 5,
   dependencies: {
