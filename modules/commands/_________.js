@@ -1,39 +1,70 @@
-module.exports.config = {
+const axios = require("axios");
+const fs = require("fs").promises;
+const path = require("path");
+
+module.exports = {
+  config: {
     name: "بارد",
-    version: "1.0.0",
-    hasPermssion: 0,
-    credits: "Gry KJ",
-    description: "Talk to Bard",
-    commandCategory: "Ai",
-    usages: "[ask]",
-    cooldowns: 2,
+    usePrefix: true,
+    description: "اسئل gemini",
+    hasPermssion: 0, // 0 for all users, 1 for admin, 2 for dev
+    credits: "OPERATOR ISOY",
+    commandCategory: "〘 الخدمات 〙",
+    usages: "",
+    cooldowns: 5,
+  },
+  run: async function ({ api, event, args, commandModules }) {
+    const geminiApiUrl = "https://gemini.easy-api.online/v1/completion"; 
+
+    try {
+      const text = args.join(" ");
+      if (!text) {
+        return api.sendMessage("Please provide a question or query", event.threadID, event.messageID);
+      }
+
+      let imageBase64Array = [];
+
+      if (event.type === "message_reply" && event.messageReply.attachments && event.messageReply.attachments.length > 0) {
+        const attachments = event.messageReply.attachments;
+
+        imageBase64Array = await Promise.all(attachments.map(async (attachment) => {
+          if (attachment.type === "photo" || attachment.type === "animated_image" || attachment.type === "video") {
+            const imageData = await downloadAndSaveImage(attachment.url, attachment.type);
+            return imageData;
+          }
+        }));
+      }
+
+      const response = await axios.post(geminiApiUrl, {
+        prompt: text,
+        imageBase64Array,
+      });
+
+      const data = response.data.content;
+
+      api.sendMessage(data, event.threadID, event.messageID);
+    } catch (error) {
+      console.error(error);
+      api.sendMessage("An error occurred while processing the command.", event.threadID);
+    }
+  },
 };
 
-module.exports.run = async function({ api, event, args }) {
-    const axios = require("axios");
-    let { messageID, threadID, senderID, body } = event;
-    let tid = threadID,
-    mid = messageID;
-    const content = encodeURIComponent(args.join(" "));
-    if (!args[0]) return api.sendMessage("كتب شي حاجة من ورا بارد", tid, mid);
-    try {
-        const res = await axios.get(`https://bard.grybot27.repl.co/api/?query=${content}`);
-        const respond = res.data.Bard;
-        if (res.data.error) {
-            api.sendMessage(`Error: ${res.data.error}`, tid, (error, info) => {
-                if (error) {
-                    console.error(error);
-                }
-            }, mid);
-        } else {
-            api.sendMessage(respond, tid, (error, info) => {
-                if (error) {
-                    console.error(error);
-                }
-            }, mid);
-        }
-    } catch (error) {
-        console.error(error);
-        api.sendMessage("حدث خطأ يرجى المحاولة لاحقا.", tid, mid);
-    }
-};
+async function downloadAndSaveImage(imageUrl, imageType) {
+  try {
+    const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
+    const imageBuffer = Buffer.from(response.data);
+    
+    const fileExtension = imageType === "video" ? "mp4" : "png";
+    const fileName = `gemini_${Date.now()}.${fileExtension}`;
+
+    const imagePath = path.join(__dirname, "cache", fileName);
+    await fs.writeFile(imagePath, imageBuffer);
+
+    const imageData = await fs.readFile(imagePath, { encoding: "base64" });
+    return imageData;
+  } catch (error) {
+    console.error("Error downloading and saving image:", error);
+    throw error;
+  }
+}
