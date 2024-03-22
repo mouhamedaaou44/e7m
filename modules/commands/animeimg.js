@@ -1,25 +1,25 @@
 module.exports.config = {
-	name: "صورانمي",
-	version: "1.0.0",
-	hasPermssion: 0,
-	credits: "𝐊𝐈𝐓𝐄 凧",
-	description: "Random anime pictures",
-	commandCategory: "Random-IMG",
-	usages: "imganime",
-	cooldowns: 5
+	name: "مادخلك",
+	version: "2.0.0",
+	hasPermssion: 1,
+	credits: "Thọ & Mod By DuyVuong",
+	description: "إعادة إرسال الرسائل المحذوفه",
+  usePrefix: true,
+	commandCategory: "مسؤولي المجموعة ", 
+	usages: "resend",
+	cooldowns: 0,
+  hide:true,
+  dependencies: {"request":"",       
+                 "fs-extra":"",
+                 "axios":""
+                }
+
 };
 
-module.exports.run = async ({ api, event }) => {
-	const axios = require('axios');
-	const request = require('request');
-	const fs = require("fs");
-	axios.get('https://anime.ocvat2810.repl.co/').then(res => {
-	let ext = res.data.data.substring(res.data.data.lastIndexOf(".") + 1);
-	let callback = function () {
-					api.sendMessage({
-						attachment: fs.createReadStream(__dirname + `/cache/shiba.${ext}`)
-					}, event.threadID, () => fs.unlinkSync(__dirname + `/cache/shiba.${ext}`), event.messageID);
-				};
-				request(res.data.data).pipe(fs.createWriteStream(__dirname + `/cache/shiba.${ext}`)).on("close", callback);
-			})
-}
+module.exports.handleEvent = async function ({ event, api, client, Users }) {
+    const request = global.nodemodule["request"];
+    const axios = global.nodemodule["axios"]
+    const { writeFileSync, createReadStream } = global.nodemodule["fs-extra"];
+  let {messageID, senderID, threadID, body:content } = event;
+     if (!global.logMessage) global.logMessage = new Map();	
+     if (!global.data.botID) global.data.botID = api.getCurrentUserID();
