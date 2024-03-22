@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 1,
 	credits: "Mirai Team",
 	description: "قم بإزالة الشخص الذي تريد إزالته من المجموعة عن طريق وضع علامة عليه أو الرد على رسالته",
-	commandCategory: "ادمنية الكروبات", 
+	commandCategory: "〘 المجموعات 〙", 
 	usages: "[tag]", 
 	cooldowns: 0,
 };
