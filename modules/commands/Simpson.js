@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "𝐊𝐈𝐓𝐄 凧",
 	description: "مجرد ترفيه",
-	commandCategory: "ميمز",
+	commandCategory: "〘 الصور 〙",
 	usages: "[سيمبسون + نص]",
 	cooldowns: 10,
 	dependencies: {
