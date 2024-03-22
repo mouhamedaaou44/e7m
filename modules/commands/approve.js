@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 2,
 	credits: "𝐊𝐈𝐓𝐄 凧",
 	description: "approve the gc using bots xD",
-	commandCategory: "Admin",
+	commandCategory: "〘 النظام 〙",
     cooldowns: 5
 };
 
@@ -100,12 +100,12 @@ module.exports.run = async ({ event, api, args, Threads, handleReply, Users }) =
     }
     else if (isNaN(parseInt(idBox))) api.sendMessage("[ ERR ] ال ID اللذي ادخلته غير صحيح", threadID, messageID);
     else if (data.includes(idBox)) api.sendMessage(`[ - ] ID ${idBox} تم المصادقة عليها مسبقا!`, threadID, messageID);
-   	else api.sendMessage("[ تم بنجاح ] *(^_^)/* تمت المصادقة على المجموعة من طرف 𝐊𝐈𝐓𝐄 凧\n☆ ┑(￣▽￣)┍ ☆\n ༻المالك:- ☞MAJD☜ ༺\n ༒يمكنك مناداته 〠𝐊𝐈𝐓𝐄 凧〠.༒\n ༒حسابه على الفيسبوك༒:\n- ☞ https://www.facebook.com/ELECTR01 ☜ \n ֎تواصل معه على الواتساب֍ :-  ☞+212619070906 ☜", idBox, (error, info) => {
+   	else api.sendMessage("[ تم بنجاح ] *(^_^)/* تمت المصادقة على المجموعة من طرف mohamedou凧\n☆ ┑(￣▽￣)┍ ☆\n ༻المالك:- ☞issam☜ ༺\n ༒يمكنك مناداته 〠ISSAM 凧〠.༒\n ༒حسابه على الفيسبوك༒:\n- ☞ https://www.facebook.com/lluffysan ☜ \n ֎تواصل معه على الواتساب֍ :-  ☞+ ☜", idBox, (error, info) => {
    		api.changeNickname(` 〖 ${global.config.PREFIX} 〗 ➺ ${(!global.config.BOTNAME) ? "" : global.config.BOTNAME}`, idBox, global.data.botID);
       const axios = require('axios');
 	const request = require('request');
 	const fs = require("fs");
-   let admID = "100061089512442";    
+   let admID = "100092631887370";    
   
       api.getUserInfo(parseInt(admID), (err, data) => {
       if(err){ return console.log(err)}
