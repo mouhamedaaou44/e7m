@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "𝐊𝐈𝐓𝐄 凧",
 	description: "اوباما منشور في تويتر",
-	commandCategory: "edit-img",
+	commandCategory: "〘 الصور 〙",
 	usages: "[نص + اوباما]",
 	cooldowns: 10,
 	dependencies: {
