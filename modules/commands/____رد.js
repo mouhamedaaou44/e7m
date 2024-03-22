@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 1,
 	credits: "CatalizCS",
 	description: "ضيف ردود لمجموعتك",
-	commandCategory: "اوامر الكروبات",
+	commandCategory: "〘 المجموعات 〙",
     usages: "[الكل/حذف]",
 	cooldowns: 5,
 	dependencies: {
