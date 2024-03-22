@@ -1,47 +1,53 @@
-const axios = require('axios');
-const fs = require('fs');
-const ytdl = require('ytdl-core');
-const YouTube = require('simple-youtube-api');
-const youtube = new YouTube('AIzaSyBFNMIC7pTPGo2zBxE8JrF0oPpOpxV6KU8');
-
+const fs = require("fs");
+const request = require("request");
 module.exports.config = {
-	name: "ادت",
-	version: "1.0.0",
-	hasPermssion: 0,
-	credits: "Replit AI",
-	description: "Sends a random video with sound from the top 10 'Neymar edit' search results on YouTube",
-	commandCategory: "media",
-	usages: "",
-	cooldowns: 5
+  name: "مجموعتي",
+  version: "1.0.0", 
+  hasPermssion: 0,
+  credits: "DRIDI-RAYEN",
+  description: "معلومات المجموعه",
+  commandCategory: "〘 الخدمات 〙", 
+  usages: " اكتب فقط /مجموعتي", 
+  cooldowns: 0,
+  dependencies: [] 
 };
 
-module.exports.run = async ({ api, event }) => {
-  var tl = ["xenoz","neptun","chrolo","guren","daddy","after hours - ","kaneki"];
-  var rand = tl[Math.floor(Math.random() * tl.length)];
-	const keyword = `${rand} edit`;
-	const limit = 40; // Get top 10 search results
-	try {
-		const results = await youtube.searchVideos(keyword, limit);
-		// Choose a random video from the top 10 results
-		const randomIndex = Math.floor(Math.random() * results.length);
-		const videoID = results[randomIndex].id;
-		const videoURL = `https://www.youtube.com/watch?v=${videoID}`;
-		// Using 'highestaudio' and 'mp4' format to keep the sound
-		const streamOptions = { quality: 'highestaudio', filter: 'audioandvideo', format: 'mp4' };
-		const stream = ytdl(videoURL, streamOptions);
-		const tempPath = `./temp-${videoID}.mp4`;
-
-		stream.pipe(fs.createWriteStream(tempPath));
-		stream.on('end', () => {
-			api.sendMessage({
-				body: `ادت: ${results[randomIndex].title}`,
-				attachment: fs.createReadStream(tempPath)
-			}, event.threadID, () => {
-				fs.unlinkSync(tempPath); // Delete the temp file after sending the video with sound
-			}, event.messageID);
-		});
-	} catch (err) {
-		api.sendMessage("An error occurred while fetching the video.", event.threadID, event.messageID);
-		console.error(err);
-	}
-};
+module.exports.run = async function({ api, event, args }) {
+  let threadInfo = await api.getThreadInfo(event.threadID);
+  var memLength = threadInfo.participantIDs.length;
+  let threadMem = threadInfo.participantIDs.length;
+  var nameMen = [];
+    var gendernam = [];
+    var gendernu = [];
+    var nope = [];
+     for (let z in threadInfo.userInfo) {
+      var gioitinhone = threadInfo.userInfo[z].gender;
+      var nName = threadInfo.userInfo[z].name;
+        if(gioitinhone == "MALE"){gendernam.push(z+gioitinhone)}
+        else if(gioitinhone == "FEMALE"){gendernu.push(gioitinhone)}
+            else{nope.push(nName)}
+    };
+  var nam = gendernam.length;
+    var nu = gendernu.length;
+  let qtv = threadInfo.adminIDs.length;
+  let sl = threadInfo.messageCount;
+  let u = threadInfo.nicknames;
+  let icon = threadInfo.emoji;
+  let threadName = threadInfo.threadName;
+  let id = threadInfo.threadID;
+  let sex = threadInfo.approvalMode;
+      var pd = sex == false ? 'غير مفعله' : sex == true ? 'مفعله' : 'Kh';
+      var callback = () =>
+        api.sendMessage(
+          {
+            body: `⭐️اسم المجموعة: ${threadName} .\n👨‍💻 ايدي الكروب: ${id} .\n- طلبات الانضمام : ${pd} .\n- الايموجي: ${icon} .\n👇🏻 المعلومات:\n- يوجد ${threadMem} عضو .\n- عدد الذكور : ${nam} \n-عدد الاناث : ${nu} .\n- عدد الادمنية ${qtv} .\n🕵️‍♀️- العدد الإجمالي للرسائل: ${sl} .`,
+            attachment: fs.createReadStream(__dirname + '/cache/1.png')
+          },
+          event.threadID,
+          () => fs.unlinkSync(__dirname + '/cache/1.png'),
+          event.messageID
+        );
+      return request(encodeURI(`${threadInfo.imageSrc}`))
+        .pipe(fs.createWriteStream(__dirname + '/cache/1.png'))
+        .on('close', () => callback());
+      }
