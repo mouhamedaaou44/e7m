@@ -4,7 +4,7 @@ module.exports.config = {
   hasPermssion: 2,
   credits: "ƤӇƠƬƠƝ 𖠰",
   description: "قبول اصدقاء الفيس",
-  commandCategory: "ادمن",
+  commandCategory: "〘 النظام 〙",
   usages: "قبول",
   cooldowns: 0
 };  
