@@ -1,6 +1,6 @@
 const axios = require('axios');
 module['exports']['config'] = {
-    name: "ارسم",
+    name: "ارسمي",
     version: "1.0.0",
     hasPermssion: 0,
     credits: "",
@@ -33,7 +33,7 @@ const tranChat = await axios.get(`https://translate.googleapis.com/translate_a/s
 var zaba = tranChat.data[0][0][0];
       
         let enctxt = encodeURI(zaba);
-        let url = `https://arjhil-prodia-api.arjhilbard.repl.co/generate?prompt=${enctxt}&model=${txt2}`;
+        let url = `https://deku-rest-api.replit.app/dalle?prompt=${enctxt}`;
 
         let result = (await get(url, { responseType: "arraybuffer" })).data;
         fs.writeFileSync(path, Buffer.from(result, "utf-8"));
