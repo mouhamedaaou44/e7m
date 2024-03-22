@@ -2,9 +2,9 @@ module.exports.config = {
 	name: "نشر",
 	version: "1.0.0",
 	hasPermssion: 2,
-	credits: "𝙈𝙧𝙏𝙤𝙢𝙓𝙭𝙓",
-	description: "Create a new post in acc bot",
-	commandCategory: "admin",
+	credits: "محمد",
+	description: "نشر منشور على حساب البوت",
+	commandCategory: "〘 النظام 〙",
 	cooldowns: 5
 };
 
@@ -72,7 +72,7 @@ module.exports.run = async ({ event, api }) => {
     "canUserManageOffers": false
   };
   
-  return api.sendMessage(`Choose an audience that can see this article of yours\n1. Everyone\n2. Friend\n3. Only me`, threadID, (e, info) => {
+  return api.sendMessage(`اختر الجمهور 💁\n1. الكل 🤸\n2. الاصدقاء 👥\n3. انا فقض 😶‍🌫️\n\n --- رد على الرسالة بالرقم ---`, threadID, (e, info) => {
     global.client.handleReply.push({
       name: this.config.name,
       messageID: info.messageID,
@@ -109,7 +109,7 @@ const fs = require("fs-extra");
     if (!["1", "2", "3"].includes(body)) return api.sendMessage('Please choose 1 of the 3 items above', threadID, messageID);
     formData.input.audience.privacy.base_state = body == 1 ? "EVERYONE" : body == 2 ? "FRIENDS" : "SELF";
     api.unsendMessage(handleReply.messageID, () => {
-      api.sendMessage(`Reply to this message with the content of the article, if you want to leave it blank, please reply 0`, threadID, (e, info) => {
+      api.sendMessage(`رد على هاذهي الرسالة بمجتو المنشور ويمكنك تركه فارقا بإرسال 0`, threadID, (e, info) => {
         global.client.handleReply.push({
           name: this.config.name,
           messageID: info.messageID,
@@ -123,7 +123,7 @@ const fs = require("fs-extra");
   else if (type == "content") {
     if (event.body != "0") formData.input.message.text = event.body;
     api.unsendMessage(handleReply.messageID, () => {
-      api.sendMessage(`Reply to this message with a photo (you can send multiple photos, if you don't want to post pictures, please reply 0`, threadID, (e, info) => {
+      api.sendMessage(`رد على هاذهي الرسالة بالصورة التي ترد ارفاقها مع المنشور و يمكن تركه فارقا برد على الرسالة ب 0`, threadID, (e, info) => {
         global.client.handleReply.push({
           name: this.config.name,
           messageID: info.messageID,
