@@ -9,7 +9,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "Gry KJ",
   description: "تكلم مع شيلي",
-  commandCategory: "شيلي",
+  commandCategory: "〘 الخدمات 〙",
   usages: "[ask]",
   cooldowns: 2,
 };
