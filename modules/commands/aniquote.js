@@ -4,7 +4,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "𝐊𝐈𝐓𝐄 凧",
   description: "random anime",
-  commandCategory: "quotes",
+  commandCategory: "〘 ترفية 〙",
   usages: "tag or none",
   cooldowns: 1
 };
