@@ -1,52 +1,29 @@
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
 
 module.exports.config = {
-  name: "العسكر",
-  version: "1.0.0",
-  hasPermssion: 0,
-  credits: "Replit AI",
-  description: "Send a random military video from a given link",
-  commandCategory: "other",
-  usages: " ",
-  cooldowns: 5,
-  dependencies: {
-    "axios": "",
-    "fs": "",
-    "path": ""
-  }
+	name: "البادئة",
+    version: "1.0.1",
+	hasPermssion: 0,
+	credits: "DRIDI-RAYEN", 
+	description: "الوصول الى بادئة البوت",
+    usePrefix: true,
+	commandCategory: "〘 بدون بادئة 〙",
+	usages: "اكتب فقط البادئة",
+    cooldowns: 1,
 };
 
-module.exports.run = async function({ api, event }) {
-  const { threadID, messageID } = event;
-  try {
-    const videoUrl = 'https://api.easy0.repl.co/api/random-military-video';
-    const response = await axios.get(videoUrl, { responseType: 'stream' });
-    const videoStream = response.data;
-    const videoPath = path.join(__dirname, '/noprefix/military-video.mp4');
-    
-    const writer = fs.createWriteStream(videoPath);
-    videoStream.pipe(writer);
+module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
+	var { threadID, messageID } = event;
+	if (event.body.indexOf("البادئة")==0 || (event.body.indexOf("البادئة")==0 || (event.body.indexOf("بادئة")==0 || (event.body.indexOf("بادئة")==0)))) {
+    const moment = require("moment-timezone");
+    var gio = moment.tz("Asia/Manila").format("HH:mm:ss || D/MM/YYYY");
+		var msg = {
+				body: `أُلَبّأُدِئةَ أُلَخِأُصًةَ بّيْ هي:» ${global.config.PREFIX} «\nأكتب الاوامر للوصول الى القائمة الخاص بالاوامر☑️✨ \n
+    💗sifo`
+			}
+			api.sendMessage(msg, threadID, messageID);
+		}
+	}
+	module.exports.run = function({ api, event, client, __GLOBAL }) {
 
-    await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
-
-    const msg = {
-      body: "هاهو الفيديو ديالك ازين",
-      attachment: fs.createReadStream(videoPath)
-    };
-
-    api.sendMessage(msg, threadID, messageID);
-    // Cleanup after sending the video
-    fs.unlink(videoPath, (err) => {
-      if (err) throw err;
-    });
-
-  } catch (error) {
-    console.error("Error:", error);
-    api.sendMessage("ايرور.", threadID, messageID);
-  }
-};
+    }
