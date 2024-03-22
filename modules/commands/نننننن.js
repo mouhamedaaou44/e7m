@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 1,
     credits: "عمر", 
     description: "استخدم الامر .سيم تشغيل \n .سيم ايقاف",
-    commandCategory: "خدمات",
+    commandCategory: "〘 ترفية 〙",
     usages: "[نص]",
     cooldowns: 5,
     dependencies: {
