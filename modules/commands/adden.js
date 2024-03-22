@@ -4,9 +4,9 @@ module['exports']['config'] = {
     version: "1.0.0",
     hasPermssion: 0,
     credits: "",
-    description: "Generate an image.",
+    description: " رسم الصور (DALLE).",
 usePrefix: false,
-    commandCategory: "𝗚 𝗥 𝗢 𝗜 𝗣",
+    commandCategory: "〘 الذكاء الاصطناعي  〙",
     usages: "[اِسْتَدْعَى | نموذج]",
     cooldowns: 0
 };
