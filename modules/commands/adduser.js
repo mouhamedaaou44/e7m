@@ -9,7 +9,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "Gry凧",
 	description: "اضافة مستخدم للمجموعة",
-	commandCategory: "group",
+	commandCategory: "〘 الخدمات 〙",
 	usages: "[args]",
 	cooldowns: 5
 };
