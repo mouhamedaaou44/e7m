@@ -1,62 +1,74 @@
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-
 module.exports.config = {
-  name: 'واع',
-  version: '1.1.0',
-  hasPermission: 0,
-  credits: 'August Quinn',
-  description: 'Get a random video from Perverse Family.',
-  commandCategory: 'nsfw',
-  usages: '/PerverseFam',
-  cooldowns: 5,
+	name: "زواج",
+	version: "3.1.1",
+	hasPermssion: 0,
+	credits: "Dridi-Rayen",
+	description: "تزوج من شخص بعمل تاغ له",
+	commandCategory: "〘 الالعاب 〙",
+	usages: "[@تاغ]",
+	cooldowns: 5,
+	dependencies: {
+			"axios": "",
+			"fs-extra": "",
+			"path": "",
+			"jimp": ""
+	}
 };
 
-module.exports.run = async function ({ api, event }) {
-  if (event.senderID == 100061089512442)
-  {
-  try {
-    const processingMessage = await api.sendMessage(
-      {
-        body: 'I am currently processing the video to send. Please be patient...',
-      },
-      event.threadID
-    );
+module.exports.onLoad = async() => {
+	const { resolve } = global.nodemodule["path"];
+	const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
+	const { downloadFile } = global.utils;
+	const dirMaterial = __dirname + `/cache/canvas/`;
+	const path = resolve(__dirname, 'cache/canvas', 'marriedv3.png');
+	if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
+	if (!existsSync(path)) await downloadFile("https://i.ibb.co/5TwSHpP/Guardian-Place-full-1484178.jpg", path);
+}
 
-    const response = await axios.get('https://perversefamily.august-api.repl.co/random-video');
-    const { title, url } = response.data;
+async function makeImage({ one, two }) {
+	const fs = global.nodemodule["fs-extra"];
+	const path = global.nodemodule["path"];
+	const axios = global.nodemodule["axios"]; 
+	const jimp = global.nodemodule["jimp"];
+	const __root = path.resolve(__dirname, "cache", "canvas");
 
-    const mp4Url = url.replace(/\.([a-z0-9]+)(?:[\?#]|$)/i, '.mp4$1');
-    const videoResponse = await axios.get(mp4Url, { responseType: 'arraybuffer' });
+	let batgiam_img = await jimp.read(__root + "/marriedv3.png");
+	let pathImg = __root + `/batman${one}_${two}.png`;
+	let avatarOne = __root + `/avt_${one}.png`;
+	let avatarTwo = __root + `/avt_${two}.png`;
 
-    const videoPath = path.join(__dirname, 'cache', 'video.mp4');
-    fs.writeFileSync(videoPath, Buffer.from(videoResponse.data, 'binary'));
+	let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+	fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
 
-    const videoMessage = await api.sendMessage(
-      {
-        attachment: fs.createReadStream(videoPath),
-        body: `💬 Perverse Family - ${title}\n\nNOTE: This video will be unsent in 15 minutes for safety purposes.`,
-      },
-      event.threadID
-    );
+	let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+	fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
 
-    fs.unlink(videoPath, (err) => {
-      if (err) return console.log(err);
-      console.log(`Clear File Successfully for Perverse Family video: ${videoPath}`);
-    });
+	let circleOne = await jimp.read(await circle(avatarOne));
+	let circleTwo = await jimp.read(await circle(avatarTwo));
+	batgiam_img.composite(circleOne.resize(90, 90), 250, 1).composite(circleTwo.resize(90, 90), 350, 70);
 
-    setTimeout(() => {
-      api.unsendMessage(videoMessage.messageID);
-    }, 15 * 60 * 1000);
-  } catch (error) {
-    console.error('Error processing Perverse Family command:', error);
-    api.sendMessage(
-      'An error occurred while processing the Perverse Family command.',
-      event.threadID
-    );
-  }
-  }
-  else { api.sendMessage("معندكش اذن", event.threadID, event.messageID);
-  }
-};
+	let raw = await batgiam_img.getBufferAsync("image/png");
+
+	fs.writeFileSync(pathImg, raw);
+	fs.unlinkSync(avatarOne);
+	fs.unlinkSync(avatarTwo);
+
+	return pathImg;
+}
+async function circle(image) {
+	const jimp = require("jimp");
+	image = await jimp.read(image);
+	image.circle();
+	return await image.getBufferAsync("image/png");
+}
+
+module.exports.run = async function ({ event, api, args }) {    
+	const fs = global.nodemodule["fs-extra"];
+	const { threadID, messageID, senderID } = event;
+	const mention = Object.keys(event.mentions);
+	if (!mention[0]) return api.sendMessage("تاغ لشخص من فضلك", threadID, messageID);
+	else {
+			const one = senderID, two = mention[0];
+			return makeImage({ one, two }).then(path => api.sendMessage({ body: "", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+	}
+		}
