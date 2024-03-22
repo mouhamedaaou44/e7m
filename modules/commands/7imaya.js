@@ -7,7 +7,7 @@ version: "ǺᎩᎧᏬᏰ",
 hasPermssion: 0,
 credits: "Dc-Nam",
 description: "حماية اسم مجموعتك",
-commandCategory: "Quản Lí Box",
+commandCategory: "〘 المجموعات 〙",
 usages: "",
 cooldowns: 0
 };
