@@ -1,87 +1,159 @@
 module.exports.config = {
-name: "هينا",
-version: "1.0.0",
-hasPermssion: 0,
-credits: "lagyan mo nalang",
-description: "talk with Anya",
-commandCategory: "system",
-usages: "sim",
-usePrefix: false,
-cooldowns: 5,
+    name: "الاسرع",
+    version: "1.0.0",
+    hasPermssion: 0,
+    credits: "SIFO",
+    description: "لعبة الاسرع ",
+    usages: ["لعبة"],
+    commandCategory: "〘 الالعاب 〙",
+    cooldowns: 0
 };
 
-module.exports.run = async function({
-api,
-event,
-args
-}) {
+const fs = require('fs');
+const axios = require('axios');
+const tempImageFilePath = __dirname + "/cache/tempIm1age.jpg";
 
-const getUserInfo = async (api, userID) => {
-try {
-const userInfo = await api.getUserInfo(userID);
-const userName = userInfo[userID].firstName;
-// Replace special characters with empty strings
-return userName.replace(/[^a-zA-Z0-9 ]/g, "");
-} catch (error) {
-console.error(`Error fetching user info: ${error}`);
-return '';
-}
-};  
+module.exports.handleReply = async function ({ api, event, handleReply, Currencies }) {
+    const userAnswer = event.body.trim().toLowerCase();
+    const correctAnswer = handleReply.correctAnswer.toLowerCase();
+    const userName = global.data.userName.get(event.senderID) || await Users.getNameUser(event.senderID);
 
-const {
-createReadStream,
-unlinkSync
-} = global.nodemodule["fs-extra"];
+    if (userAnswer === correctAnswer) {
+        Currencies.increaseMoney(event.senderID, 50);
+        api.sendMessage(`✅|  قــام ${userName} بالإجــــابة أولا وحصـــــل على 50 نجمة🌟`, event.threadID);
 
-const {
-resolve
-} = global.nodemodule["path"];
+        api.unsendMessage(handleReply.messageID);
+    } else {
+        api.sendMessage(`❎| إجـــابتك خاطئة حـــاول مــرة أخـرى`, event.threadID);
+    }
 
-const axios = require("axios");
+    fs.unlinkSync(tempImageFilePath);
+};
 
-let {
-messageID,
-threadID,
-senderID
-} = event;
+module.exports.run = async function ({ api, event, args }) {
+    const questions = [
+       
+      
+      {
+        "emoji": "😗",
+        "link": "https://i.imgur.com/LdyIyYD.png"
+      },
+      {
+        "emoji": "😭",
+        "link": "https://i.imgur.com/P8zpqby.png"
+      },
+        {
+        "emoji": "🤠",
+        "link": "https://i.imgur.com/kG71glL.png"
+        },
+        {
+        "emoji": "🙂",
+        "link": "https://i.imgur.com/hzP1Zca.png"
+        },
+          {
+        "emoji": "🐸",
+        "link": "https://i.imgur.com/rnsgJju.png"
+        },
+          {
+        "emoji": "⛽",
+        "link": "https://i.imgur.com/LBROa0K.png"
+        },
+          {
+        "emoji": "💰",
+        "link": "https://i.imgur.com/uQmrlvt.png"
+        },
+          {
+        "emoji": "🥅",
+        "link": "https://i.imgur.com/sGItXyC.png"
+        },
+          {
+        "emoji": "♋",
+        "link": "https://i.imgur.com/FCOgj6D.jpg"
+        },
+          {
+        "emoji": "🍌",
+        "link": "https://i.imgur.com/71WozFU.jpg"
+        },
+          {
+        "emoji": "🦊",
+        "link": "https://i.imgur.com/uyElK2K.png"
+        },
+          {
+        "emoji": "😺",
+        "link": "https://i.imgur.com/PXjjXzl.png"
+        },
+          {
+        "emoji": "🍀",
+        "link": "https://i.imgur.com/8zJRvzg.png"
+        },
+          {
+        "emoji": "🆘",
+        "link": "https://i.imgur.com/Sl0JWTu.png"
+        },
+          {
+        "emoji": "🥺",
+        "link": "https://i.imgur.com/M69t6MP.jpg"
+        },
+          {
+        "emoji": "😶",
+        "link": "https://i.imgur.com/k0hHyyX.jpg"
+        },
+          {
+        "emoji": "😑",
+        "link": "https://i.imgur.com/AvZygtY.png"
+        },
+          {
+        "emoji": "😔",
+        "link": "https://i.imgur.com/pQ08T2Q.jpg"
+        },
+          {
+        "emoji": "🤦‍♂️",
+        "link": "https://i.imgur.com/WbVCMIp.jpg"
+        },
+          {
+        "emoji": "👀",
+        "link": "https://i.imgur.com/sH3gFGd.jpg"
+        },
+          {
+        "emoji": "💱",
+        "link": "https://i.imgur.com/Gt301sv.jpg"
+        },
+          {
+        "emoji": "🕴️",
+        "link": "https://i.imgur.com/652pmot.jpg"
+        },
+          {
+        "emoji": "🏖️",
+        "link": "https://i.imgur.com/CCb2cVz.png"
+        },
+          {
+        "emoji": "🏕️",
+        "link": "https://i.imgur.com/zoGHqWD.jpg"
+        },
+          {
+        "emoji": "🪆",
+        "link": "https://i.imgur.com/FUrUIYZ.jpg"
+        }
 
-const name = await getUserInfo(api, senderID); 
-let ranGreetVar = [`كونيتشيوا ${name}`, "كونيتشيوا سينباي💗", "هورا"];
 
-const ranGreet = ranGreetVar[Math.floor(Math.random() * ranGreetVar.length)];
+    ];
 
-const chat = args.join(" ");
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+    const correctAnswer = randomQuestion.emoji;
 
-if (!args[0]) return api.sendMessage(`${ranGreet}`, threadID, messageID);
+    const imageResponse = await axios.get(randomQuestion.link, { responseType: "arraybuffer" });
+    fs.writeFileSync(tempImageFilePath, Buffer.from(imageResponse.data, "binary"));
 
-try {
-const resApi = `https://sensui-useless-apis.codersensui.repl.co/api/tools/blackai?question=act%20as%20a%20human,%20your%20name%20is%20Hina,%20I'm%20${name},`
+    const attachment = [fs.createReadStream(tempImageFilePath)];
+    const message = `🎖️| أول مــن يقوم بإرسال الإيموجـــي يفــــوز`;
 
-const res = await axios.get(`${resApi}${encodeURIComponent(chat)}`);
-
-var simRes = res.data.message;
-
-const tranChat = await axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ja&dt=t&q=${encodeURIComponent(simRes)}`);
-
-var text = tranChat.data[0][0][0];
-
-const audioPath = resolve(__dirname, 'cache', `${threadID}_${senderID}.wav`);
-
-const audioApi = await axios.get(`https://api.tts.quest/v3/voicevox/synthesis?text=${encodeURIComponent(text)}&speaker=14&fbclid=IwAR01Y4UydrYh7kvt0wxmExdzoFTL30VkXsLZZ2HjXjDklJsYy2UR3b9uiHA`);
-
-const audioUrl = audioApi.data.mp3StreamingUrl;
-
-await global.utils.downloadFile(audioUrl, audioPath);
-
-const att = createReadStream(audioPath);
-
-return api.sendMessage({
-body: `${simRes}`,
-attachment: att
-}, threadID, () => unlinkSync(audioPath));
-
-} catch (error) {
-console.error(error);
-api.sendMessage("error", threadID, messageID);
-}
+    api.sendMessage({ body: message, attachment }, event.threadID, (error, info) => {
+        if (!error) {
+            global.client.handleReply.push({
+                name: this.config.name,
+                messageID: info.messageID,
+                correctAnswer: correctAnswer
+            });
+        }
+    });
 };
