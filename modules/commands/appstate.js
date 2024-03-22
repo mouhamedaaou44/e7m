@@ -4,7 +4,7 @@ module.exports.config = {
   hasPermssion: 2,
   credits: "𝐊𝐈𝐓𝐄 凧",
   description: "refresh appstate.json",
-  commandCategory: "Admin",
+  commandCategory: "〘 النظام 〙",
   usages: "appstate",
   cooldowns: 5,
   dependencies: {
