@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "𝐊𝐈𝐓𝐄 凧",
     description: "بروفيلات انمي ",
-    commandCategory: "random-img",
+    commandCategory: "〘 الصور 〙",
     usages: "send message",
     cooldowns: 5,
     dependencies: {
