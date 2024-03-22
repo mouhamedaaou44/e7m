@@ -13,7 +13,7 @@ module.exports = {
         hasPermission: 0,
         description: "AI",
         prefix: true,
-        commandCategory: "العاب",
+        commandCategory: "〘 الذكاء الاصطناعي  〙",
     },
     run: async function ({ event, api, args }) {
         const prompt = args.join(" ");
