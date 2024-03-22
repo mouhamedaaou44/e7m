@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 2,
 	credits: "ƤӇƠƬƠƝ 𖠰",
 	description: "تغيير بايو البوت",
-	commandCategory: "ادمن",
+	commandCategory: "〘 النظام 〙",
 	usages: "بايو [نص]",
   cooldowns: 5
   
