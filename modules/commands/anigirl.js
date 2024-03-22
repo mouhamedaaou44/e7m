@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: `العاب`,
     description: `لعبه حجر ورقه مقص \n كيفية الاستخدام : اسم الامر بعدين تختار لو ورقة لو حجر لو مقص وتراهن بمبلغ /kbb ورق 50`,
-    commandCategory: `اشياء `,
+    commandCategory: `〘 الالعاب 〙 `,
     usages: `[مقص/حجر/ورق]`,
     cooldowns: 10
 };
