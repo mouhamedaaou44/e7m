@@ -1,6 +1,6 @@
 const axios = require("axios");
 module.exports.config = {
-	name: "احسبي",
+	name: "حساب",
 	version: "0.0.1-beta",
 	hasPermssion: 0,
 	credits: "SIFO",
