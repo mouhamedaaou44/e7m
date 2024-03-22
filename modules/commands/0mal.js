@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "𝐊𝐈𝐓𝐄 凧",
 	description: "البحث عن أي شيء متعلق بالانمي",
-	commandCategory: "search",
+	commandCategory: "〘 الخدمات 〙",
 	usages: "[اسم الانمي]",
 	cooldowns: 5
 };
