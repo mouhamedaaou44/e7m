@@ -3,8 +3,8 @@ module.exports.config = {
  	version: "1.0.0",
  	hasPermssion: 0,
  	credits: "𝐊𝐈𝐓𝐄 凧",
- 	description: "automatically ban the group by bot if spam bot 10 times/minute",
- 	commandCategory: "system",
+ 	description: "ممممم",
+ 	commandCategory: "〘 النظام 〙",
  	usages: "",
  	cooldowns: 5
  };
