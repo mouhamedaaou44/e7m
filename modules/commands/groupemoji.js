@@ -3,8 +3,8 @@ module.exports.config = {
 	version: "1.0.0", 
 	hasPermssion: 0,
 	credits: "𝙈𝙧𝙏𝙤𝙢𝙓𝙭𝙓",
-	description: "Change your group Emoji",
-	commandCategory: "Box", 
+	description: "تغير ايموجي المجموعة",
+	commandCategory: "〘 المجموعات 〙", 
 	usages: "groupemoji [name]", 
 	cooldowns: 0,
 	dependencies: [] 
