@@ -7,7 +7,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "𝐊𝐈𝐓𝐄 凧",
 	description: "اكتب في خانة البحث ( ͡° ͜ʖ ͡°)",
-	commandCategory: "edit-img",
+	commandCategory: "〘 الخدمات 〙",
 	usages: "غوغل [نص]",
 	cooldowns: 10,
 	dependencies: {
