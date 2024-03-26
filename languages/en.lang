@@ -60,7 +60,7 @@ users.needObject=Have to be an Object
 
 handleCommand.userBanned=لا يمكنك استخدام البوت!\n%1\n%2
 handleCommand.threadBanned=موضوعك غير قادر على استخدام البوت!\n%1\n%2
-handleCommand.commandNotExist=هذا الامر غير موجود , هل تقصد "%1" ام ماذا ?
+
 handleCommand.commandThreadBanned=لا يمكن الحصول على معلومات موضوعك "%1"
 handleCommand.commandUserBanned=لا يمكنك استخدام هذا الامر "%1"
 handleCommand.threadNotAllowNSFW=لا يمكنك استخدام أمر NSFW
